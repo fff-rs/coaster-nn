@@ -14,8 +14,8 @@ keywords        = ["neural-network", "collenchyma", "computation", "hpc", "plugi
 license         = "MIT OR Apache-2.0"
 
 [dependencies]
-collenchyma = { version = "0.0.8", default-features = false }
-cudnn = { version = "1.3.1", optional = true }
+collenchyma = { git = "https://github.com/alexandermorozov/collenchyma", default-features = false }
+cudnn = { git = "https://github.com/alexandermorozov/rust-cudnn", optional = true }
 libc = "0.2"
 lazy_static = "0.1"
 log = "0.3.2"
