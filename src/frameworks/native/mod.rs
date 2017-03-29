@@ -360,6 +360,59 @@ impl<'a, T> NNOperationConfig<T> for helper::ConvolutionConfig
 
  }
 
+impl<T> ::plugin::Pooling<T> for Backend<Native>
+where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy,
+      {
+          fn new_pooling_config(
+              &self,
+              window: &[i32],
+              padding: &[i32],
+              stride: &[i32]
+              )
+              -> Result<Self::CPOOL, ::co::error::Error>{
+              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+              }
+
+          fn pooling_max(
+              &self,
+              x: &SharedTensor<T>,
+              result: &mut SharedTensor<T>,
+              config: &Self::CPOOL
+              ) -> Result<(), ::co::error::Error>{
+              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+          }
+
+          fn pooling_max_grad(
+              &self,
+              x: &SharedTensor<T>,
+              x_diff: &SharedTensor<T>,
+              result: &SharedTensor<T>,
+              result_diff: &mut SharedTensor<T>,
+              config: &Self::CPOOL
+              ) -> Result<(), ::co::error::Error>{
+              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+          }
+
+          fn pooling_avg(
+              &self,
+              x: &SharedTensor<T>,
+              result: &mut SharedTensor<T>,
+              config: &Self::CPOOL
+              ) -> Result<(), ::co::error::Error>{
+              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+          }
+
+          fn pooling_avg_grad(
+              &self,
+              x: &SharedTensor<T>,
+              x_diff: &SharedTensor<T>,
+              result: &SharedTensor<T>,
+              result_diff: &mut SharedTensor<T>,
+              config: &Self::CPOOL
+              ) -> Result<(), ::co::error::Error>{
+              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+          }
+      }
 // convolution is not needed here, it is well implemented without the macro madness
 impl_ops_sigmoid_for!(f32, Backend<Native>);
 impl_ops_relu_for!(f32, Backend<Native>);
@@ -384,4 +437,3 @@ impl_ops_tanh_for!(f64, Backend<Native>);
 impl_ops_softmax_for!(f64, Backend<Native>);
 impl_ops_log_softmax_for!(f64, Backend<Native>);
 // impl_ops_lrn_for!(f64, Backend<Native>);
-// impl_ops_pooling_for!(f64, Backend<Native>);
