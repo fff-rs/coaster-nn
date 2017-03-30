@@ -152,5 +152,9 @@ mod cuda {
 
 mod native {
     use super::*;
+    //test_native!(test_lrn, lrn_f32, lrn_f64);
+    //test_native!(test_lrn_grad, lrn_grad_f32, lrn_grad_f64);
+    //test_native!(test_pooling_max, pooling_max_f32, pooling_max_f64);
+    //test_native!(test_pooling_max_grad, pooling_max_grad_f32, pooling_max_grad_f64);
     test_native!(test_convolution, convolution_f32, convolution_f64);
 }

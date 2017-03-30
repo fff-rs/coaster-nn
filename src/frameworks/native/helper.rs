@@ -8,9 +8,15 @@ use co::plugin::Error as PluginError;
 #[derive(Debug, Copy, Clone)]
 #[allow(missing_docs)]
 pub struct NormalizationConfig;
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Clone)]
 #[allow(missing_docs)]
-pub struct PoolingConfig;
+pub struct PoolingConfig {
+    pub window: Vec<i32>, 
+    pub padding: Vec<i32>, //TODO: check datatype
+    pub stride: Vec<i32>,
+}
+
+
 
 macro_rules! read {
     ($x:ident, $t:ident, $slf:ident) => (

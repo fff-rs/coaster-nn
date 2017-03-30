@@ -97,6 +97,6 @@ mod native {
     //test_native!(test_pooling_avg, pooling_avg_f32, pooling_avg_f64);
     //test_native!(test_pooling_avg_grad, pooling_avg_grad_f32, pooling_avg_grad_f64);
     test_native!(test_pooling_max, pooling_max_f32, pooling_max_f64);
-    test_native!(test_pooling_max_grad, pooling_max_grad_f32, pooling_max_grad_f64);
+    //test_native!(test_pooling_max_grad, pooling_max_grad_f32, pooling_max_grad_f64);
 }
 

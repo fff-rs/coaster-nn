@@ -11,6 +11,7 @@ use co::plugin::Error as PluginError;
 use co::plugin::numeric_helpers::Float;
 
 use std::ops::*;
+use std::cmp::PartialOrd;
 
 #[macro_use]
 pub mod helper;
@@ -101,6 +102,7 @@ impl<'a, T> NNOperationConfig<T> for helper::ConvolutionConfig
                                algo_bwd_data: ConvBackwardDataAlgo,
                                stride: &[i32],
                                zero_padding: &[i32]) -> Result<Self::CC, Error> {
+         // TODO: check dimensions of config
          match algo_fwd {
              ConvForwardAlgo::Auto | ConvForwardAlgo::ImplicitGEMM => {
              },
@@ -254,7 +256,7 @@ impl<'a, T> NNOperationConfig<T> for helper::ConvolutionConfig
             where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy,
         {
             let p = padding[depth] as usize;
-            let input_end = input_dim[depth] + 2 * p - (filter_dim[depth]);
+            //let input_end = input_dim[depth] + 2 * p - (filter_dim[depth]);
  
             let mut input_i = 0;
  
@@ -360,8 +362,9 @@ impl<'a, T> NNOperationConfig<T> for helper::ConvolutionConfig
 
  }
 
+
 impl<T> ::plugin::Pooling<T> for Backend<Native>
-where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy,
+where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy + PartialOrd,
       {
           fn new_pooling_config(
               &self,
@@ -370,7 +373,11 @@ where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy,
               stride: &[i32]
               )
               -> Result<Self::CPOOL, ::co::error::Error>{
-              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+                  Ok(helper::PoolingConfig{
+                      window: window.to_vec(),
+                      padding: padding.to_vec(),
+                      stride: stride.to_vec(),
+                  })
               }
 
           fn pooling_max(
@@ -379,7 +386,172 @@ where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy,
               result: &mut SharedTensor<T>,
               config: &Self::CPOOL
               ) -> Result<(), ::co::error::Error>{
-              return Err(Error::Plugin(PluginError::Plugin("Unimplemented.")));
+                let dev = self.device();
+ 
+                let input_dim = x.desc(); // [4, 4, 4, 4]
+                let input = x.read(dev).unwrap()
+                    .as_native().unwrap()
+                    .as_slice::<T>();
+                let input_stride = input_dim.default_stride(); // [64, 16, 4, 1];
+ 
+                let output_dim = result.desc().clone(); // [4,4,2,2]
+        // this is ok, we only read parts we already wrote
+                let output = result.write_only(dev).unwrap()
+                    .as_mut_native().unwrap()
+                    .as_mut_slice::<T>();
+                let output_stride = output_dim.default_stride();// [16, 4, 2, 1]
+                {
+                    for o in output.iter_mut() {
+                        *o = Default::default();
+                    }
+                }
+ 
+        fn max_pooling_<T>(input: &[T], input_stride: &[usize], input_dim: &[usize],
+                      input_offset: usize, input_idx_base: &[usize],
+ 
+                      //filter: &[T], filter_stride: &[usize], filter_dim: &[usize],
+                      //filter_offset: usize,
+                      window: &[i32],
+ 
+                      padding: &[i32],
+                      depth: usize, depth_end: usize,
+                      acc: Option<T>) -> T
+            where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy + PartialOrd,
+        {
+            let mut acc = acc.unwrap_or_default();
+ 
+            let p = padding[0] as usize; // TODO: Mutidimensional padding
+            let input_idx_end = input_dim[0] + 2 * p;
+ 
+            let mut input_idx = input_idx_base[0];
+            let mut window_idx = 0;
+            while window_idx < window[0] {
+                let i_offset = input_offset + (input_idx - p) * input_stride[0];
+ 
+                let v = if input_idx < p || input_idx + 1 > input_idx_end - p {
+                    Default::default()
+                } else if depth + 1 >= depth_end {
+                    input[i_offset]
+                } else {
+                    max_pooling_(input, &input_stride[1..], &input_dim[1..],
+                            i_offset, &input_idx_base[1..],
+                            window,
+                            &padding[1..], depth + 1, depth_end,
+                            None)
+                };
+ 
+                acc = if acc >= v { acc } else if acc <= v { v } else { panic!("acc and v are NaN") };
+                // TODO: Handle NAN, inf and so on
+ 
+                input_idx += 1;
+                window_idx += 1;
+            }
+ 
+            return acc;
+        }
+ 
+        fn conv<T>(input: &[T], input_stride: &[usize], input_dim: &[usize],
+                   top_input_offset: usize, input_offset: usize,
+                   input_idx_base: &mut [usize],
+ 
+                   window: &[i32],
+
+                   depth: usize,
+                   padding: &[i32], stride: &[i32],
+ 
+                   output: &mut [T], output_stride: &[usize],
+                   output_dim: &[usize],
+                   output_offset: usize)
+            where T: Add<T, Output = T> + Mul<T, Output = T> + Default + Copy + PartialOrd,
+        {
+            //println!("conv called with input_stride {:?}, input_dim {:?}, top_input_offset {:?}, input_offset {:?}, input_idx_base {:?}, window {:?}, depth {:?}, padding {:?}, stride {:?}", input_stride, input_dim, top_input_offset, input_offset, input_idx_base, window, depth, padding, stride  );
+            let p = padding[depth] as usize;
+            let w = window[depth] as usize;
+            //let input_end = input_dim[depth] + 2 * p - w;
+ 
+            let mut input_i = 0;
+ 
+            let mut output_idx = 0;
+            while output_idx < output_dim[0] {
+                input_idx_base[depth] = input_i;
+                let input_offset = input_offset + input_i * input_stride[depth];
+                let output_offset = output_offset + output_idx * output_stride[0];
+ 
+                if depth + 1 < input_dim.len() {
+                    conv(input, input_stride, input_dim, top_input_offset,
+                         input_offset, input_idx_base,
+                         //filter, filter_stride, filter_dim, filter_offset,
+                         window,
+                         depth + 1,
+                         padding, &stride[1..], output, &output_stride[1..],
+                         &output_dim[1..], output_offset);
+                } else {
+                    let v = max_pooling_(input, input_stride, input_dim,
+                                    top_input_offset, &input_idx_base[..],
+                                    //filter, filter_stride, filter_dim, filter_offset,
+                                    window,
+                                    padding, 0, input_dim.len(),
+                                    None);
+                    output[output_offset] = output[output_offset] + v;
+                }
+ 
+                input_i += stride[0] as usize;
+                output_idx += 1;
+            }
+        }
+ 
+        fn conv_k_d1<T>(_batch: usize,
+                        input: &[T], input_stride: &[usize], input_dim: &[usize],
+                        input_offset: usize, input_idx_base: &mut [usize],
+ 
+                        window: &[i32],
+                        padding: &[i32], stride: &[i32],
+ 
+                        output: &mut [T], output_stride: &[usize],
+                        output_dim: &[usize], output_offset: usize)
+            where T: Add<T, Output = T> + Mul<T, Output = T> + PartialOrd + Default + Copy,
+        {
+            //println!("conv_k_d1 called with batch {:?}, input_stride {:?}, input_dim {:?}, input_offset {:?}, input_idx_base {:?}, window {:?}, padding {:?}, stride {:?}", _batch, input_stride, input_dim, input_offset, input_idx_base, window, padding, stride  );
+            for k in 0..window[0] { // CHECK
+                let output_offset = output_offset + (k as usize) * output_stride[0];
+                for d1 in 0..input_dim[0] { // iterate over the chanels 
+                    let input_offset = input_offset + d1 * input_stride[0];
+ 
+                    conv(input, &input_stride[1..], &input_dim[1..],
+                         input_offset, input_offset, input_idx_base,
+                         window,
+                         0, padding, stride, output, &output_stride[1..],
+                         &output_dim[1..],
+                         output_offset);
+                }
+            }
+        }
+
+        let mut input_idx = Vec::new();
+        input_idx.resize(input_dim.len() - 2, 0);
+        let mut output_idx = Vec::new();
+        output_idx.resize(output_dim.len(), 0);
+ 
+        let batches = input_dim[0];
+        let mut batch = 0;
+        while batch < batches { // iterate over the batches!
+            let input_offset = batch * input_stride[0];
+            let output_offset = batch * output_stride[0];
+            
+            // compute the conversion for this batch
+            conv_k_d1(batch, input, &input_stride[1..], &input_dim[1..], input_offset,
+                      &mut input_idx[..],
+                      //filter, &filter_stride[..], &filter_dim[..],
+                      &config.window[..],
+                      &config.padding[..], &config.stride[..],
+                      output, &output_stride[1..], &output_dim[1..],
+                      output_offset);
+ 
+            batch += 1;
+        }
+ 
+        Ok(())
+
           }
 
           fn pooling_max_grad(
@@ -420,15 +592,14 @@ impl_ops_tanh_for!(f32, Backend<Native>);
 impl_ops_softmax_for!(f32, Backend<Native>);
 impl_ops_log_softmax_for!(f32, Backend<Native>);
 // impl_ops_lrn_for!(f32, Backend<Native>);
-// impl_ops_pooling_for!(f32, Backend<Native>);
 
 //impl NN<f64> for Backend<Native> {
-    //type CC = helper::ConvolutionConfig;
-    //type CLRN = helper::NormalizationConfig;
-    //type CPOOL = helper::PoolingConfig;
+//type CC = helper::ConvolutionConfig;
+//type CLRN = helper::NormalizationConfig;
+//type CPOOL = helper::PoolingConfig;
 
-    //fn init_nn() { }
-    //fn device(&self) -> &DeviceType { self.device() }
+//fn init_nn() { }
+//fn device(&self) -> &DeviceType { self.device() }
 //}
 
 impl_ops_sigmoid_for!(f64, Backend<Native>);
