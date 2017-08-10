@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["helper","Provides useful macros for easier NN implementation for CUDA/cuDNN."]],"trait":[["DataTypeInfo","CuDnn type info for generic use."],["ICudnnDesc",""]]});

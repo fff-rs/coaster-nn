@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['libc'] = [];implementors['enum_primitive'] = [];
+implementors["coaster_nn"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);
