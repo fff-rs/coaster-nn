@@ -51,6 +51,7 @@
 <span id="6">6</span>
 <span id="7">7</span>
 <span id="8">8</span>
+<span id="9">9</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Provides the specific Framework implementations for the Library Operations.</span>
 
@@ -59,6 +60,7 @@
 <span class="comment">//#[cfg(feature = &quot;opencl&quot;)]</span>
 <span class="comment">//pub mod opencl;</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cuda&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">cuda</span>;
 </pre>
 </section>
