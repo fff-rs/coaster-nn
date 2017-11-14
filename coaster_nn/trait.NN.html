@@ -48,29 +48,36 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/coaster_nn/plugin.rs.html#151-162' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/coaster_nn/plugin.rs.html#151-165' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait NN&lt;F&gt; {
     type <a href='#associatedtype.CC' class="type">CC</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt; + <a class="trait" href="../coaster_nn/trait.ConvolutionConfig.html" title="trait coaster_nn::ConvolutionConfig">ConvolutionConfig</a>&lt;F&gt;;
     type <a href='#associatedtype.CLRN' class="type">CLRN</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt;;
     type <a href='#associatedtype.CPOOL' class="type">CPOOL</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt;;
+    type <a href='#associatedtype.CDROP' class="type">CDROP</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt;;
     fn <a href='#tymethod.init_nn' class='fnname'>init_nn</a>();
 }</pre><div class='docblock'><p>Provides the functionality for a backend to support Neural Network related operations.</p>
 </div>
-            <h2 id='associated-types'>Associated Types</h2>
+            <h2 id='associated-types' class='small-section-header'>
+              Associated Types<a href='#associated-types' class='anchor'></a>
+            </h2>
             <div class='methods'>
         <h3 id='associatedtype.CC' class='method'><span id='CC.t' class='invisible'><code>type <a href='#associatedtype.CC' class="type">CC</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt; + <a class="trait" href="../coaster_nn/trait.ConvolutionConfig.html" title="trait coaster_nn::ConvolutionConfig">ConvolutionConfig</a>&lt;F&gt;</code></span></h3><div class='docblock'><p>The Convolution Operation Config representation for this Plugin.</p>
 </div><h3 id='associatedtype.CLRN' class='method'><span id='CLRN.t' class='invisible'><code>type <a href='#associatedtype.CLRN' class="type">CLRN</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt;</code></span></h3><div class='docblock'><p>The LRN Operation Config representation for this Plugin.</p>
 </div><h3 id='associatedtype.CPOOL' class='method'><span id='CPOOL.t' class='invisible'><code>type <a href='#associatedtype.CPOOL' class="type">CPOOL</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt;</code></span></h3><div class='docblock'><p>The Pooling Operation Config representation for this Plugin.</p>
+</div><h3 id='associatedtype.CDROP' class='method'><span id='CDROP.t' class='invisible'><code>type <a href='#associatedtype.CDROP' class="type">CDROP</a>: <a class="trait" href="../coaster_nn/trait.NNOperationConfig.html" title="trait coaster_nn::NNOperationConfig">NNOperationConfig</a>&lt;F&gt;</code></span></h3><div class='docblock'><p>The Dropout Operation Config representation for this Plugin.</p>
 </div></div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.init_nn' class='method'><span id='init_nn.v' class='invisible'><code>fn <a href='#tymethod.init_nn' class='fnname'>init_nn</a>()</code></span></h3><div class='docblock'><p>The Activation Operation Config representation for this Plugin.
-Initializes the Plugin.</p>
+        <h3 id='tymethod.init_nn' class='method'><span id='init_nn.v' class='invisible'><code>fn <a href='#tymethod.init_nn' class='fnname'>init_nn</a>()</code></span></h3><div class='docblock'><p>Initializes the Plugin.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T&gt; NN&lt;T&gt; for Backend&lt;Native&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.Add.html" title="trait core::ops::Add">Add</a>&lt;T, Output = T&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.Mul.html" title="trait core::ops::Mul">Mul</a>&lt;T, Output = T&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a>,&nbsp;</span></code></li>
-<li><code>impl&lt;T&gt; NN&lt;T&gt; for Backend&lt;Cuda&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://rust-num.github.io/num/num_traits/float/trait.Float.html" title="trait num_traits::float::Float">Float</a> + <a class="trait" href="../coaster_nn/frameworks/cuda/trait.DataTypeInfo.html" title="trait coaster_nn::frameworks::cuda::DataTypeInfo">DataTypeInfo</a>,&nbsp;</span></code></li>
+    <li><code>impl&lt;T&gt; NN&lt;T&gt; for Backend&lt;Native&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.Add.html" title="trait core::ops::arith::Add">Add</a>&lt;T, Output = T&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.Mul.html" title="trait core::ops::arith::Mul">Mul</a>&lt;T, Output = T&gt; + <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a>,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.CC' class="type">CC</a> = <a class="struct" href="../coaster_nn/frameworks/native/helper/struct.ConvolutionConfig.html" title="struct coaster_nn::frameworks::native::helper::ConvolutionConfig">ConvolutionConfig</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.CLRN' class="type">CLRN</a> = <a class="struct" href="../coaster_nn/frameworks/native/helper/struct.NormalizationConfig.html" title="struct coaster_nn::frameworks::native::helper::NormalizationConfig">NormalizationConfig</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.CPOOL' class="type">CPOOL</a> = <a class="struct" href="../coaster_nn/frameworks/native/helper/struct.PoolingConfig.html" title="struct coaster_nn::frameworks::native::helper::PoolingConfig">PoolingConfig</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.CDROP' class="type">CDROP</a> = <a class="struct" href="../coaster_nn/frameworks/native/helper/struct.DropoutConfig.html" title="struct coaster_nn::frameworks::native::helper::DropoutConfig">DropoutConfig</a>;</span></code></li>
+<li><code>impl&lt;T&gt; NN&lt;T&gt; for Backend&lt;Cuda&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://rust-num.github.io/num/num_traits/float/trait.Float.html" title="trait num_traits::float::Float">Float</a> + <a class="trait" href="../coaster_nn/frameworks/cuda/trait.DataTypeInfo.html" title="trait coaster_nn::frameworks::cuda::DataTypeInfo">DataTypeInfo</a>,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.CC' class="type">CC</a> = ConvolutionConfig;</span><span class="where fmt-newline">  type <a href='#associatedtype.CLRN' class="type">CLRN</a> = NormalizationConfig;</span><span class="where fmt-newline">  type <a href='#associatedtype.CPOOL' class="type">CPOOL</a> = PoolingConfig;</span><span class="where fmt-newline">  type <a href='#associatedtype.CDROP' class="type">CDROP</a> = DropoutConfig;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../implementors/coaster_nn/trait.NN.js">
                  </script></section>

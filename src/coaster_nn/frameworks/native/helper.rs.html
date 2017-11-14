@@ -423,6 +423,12 @@
 <span id="378">378</span>
 <span id="379">379</span>
 <span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Provides useful macros for easier NN implementation for native.</span>
 
@@ -443,6 +449,12 @@
 }
 
 
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_docs</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DropoutConfig</span> {
+    <span class="kw">pub</span> <span class="ident">probability</span>: <span class="ident">f32</span>,
+    <span class="kw">pub</span> <span class="ident">seed</span>: <span class="ident">u64</span>,
+}
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">read</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">slf</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> (
@@ -466,7 +478,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_to_memory</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Iterator</span><span class="op">&gt;</span>(<span class="ident">mem</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FlatBox</span>, <span class="ident">data</span>: <span class="ident">T</span>)
     <span class="kw">where</span> <span class="ident">T</span>::<span class="ident">Item</span>: <span class="ident">Clone</span>
 {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mem_buffer</span> <span class="op">=</span> <span class="ident">mem</span>.<span class="ident">as_mut_slice</span>::<span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Item</span><span class="op">&gt;</span>();
+    <span class="kw">let</span> <span class="ident">mem_buffer</span> <span class="op">=</span> <span class="ident">mem</span>.<span class="ident">as_mut_slice</span>::<span class="op">&lt;</span><span class="ident">T</span>::<span class="ident">Item</span><span class="op">&gt;</span>();
     <span class="kw">for</span> (<span class="ident">index</span>, <span class="ident">datum</span>) <span class="kw">in</span> <span class="ident">data</span>.<span class="ident">enumerate</span>() {
         <span class="ident">mem_buffer</span>[<span class="ident">index</span>] <span class="op">=</span> <span class="ident">datum</span>;
     }

@@ -484,6 +484,31 @@
 <span id="439">439</span>
 <span id="440">440</span>
 <span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Provides the INn Plugin trait for Coaster implementation.</span>
 
@@ -642,7 +667,10 @@
     <span class="kw">type</span> <span class="ident">CLRN</span>: <span class="ident">NNOperationConfig</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>;
     <span class="doccomment">/// The Pooling Operation Config representation for this Plugin.</span>
     <span class="kw">type</span> <span class="ident">CPOOL</span>: <span class="ident">NNOperationConfig</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// The Activation Operation Config representation for this Plugin.</span>
+    <span class="comment">// /// The Activation Operation Config representation for this Plugin.</span>
+    <span class="comment">// type CACTI: NNOperationConfig&lt;F&gt;;</span>
+    <span class="doccomment">/// The Dropout Operation Config representation for this Plugin.</span>
+    <span class="kw">type</span> <span class="ident">CDROP</span>: <span class="ident">NNOperationConfig</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Initializes the Plugin.</span>
     <span class="kw">fn</span> <span class="ident">init_nn</span>();
@@ -925,6 +953,28 @@
     <span class="kw">fn</span> <span class="ident">pooling_avg_grad</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>, <span class="ident">x_diff</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
                         <span class="ident">result</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>, <span class="ident">result_diff</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
                         <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">CPOOL</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">co</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+}
+
+<span class="doccomment">/// Provides the functionality for a Backend to support Dropout operations.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Dropout</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> : <span class="ident">NN</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new DropoutConfig, which needs to be passed to further dropout Operations.</span>
+    <span class="kw">fn</span> <span class="ident">new_dropout_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dropout</span>: <span class="ident">f32</span>, <span class="ident">seed</span>: <span class="ident">u64</span>)
+                          <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">CDROP</span>, ::<span class="ident">co</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Computes non-linear down-sampling ([max Pooling][pooling]) over the input Tensor `x`.</span>
+    <span class="doccomment">/// [pooling]: https://en.wikipedia.org/wiki/Convolutional_neural_network#Pooling_layer</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Saves the result to `result`.</span>
+    <span class="kw">fn</span> <span class="ident">dropout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>, <span class="ident">result</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
+                   <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">CDROP</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">co</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Computes non-linear down-sampling ([max Pooling][pooling]) over the input Tensor `x`.</span>
+    <span class="doccomment">/// [pooling]: https://en.wikipedia.org/wiki/Dropout_(neural_networks)</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Saves the result to `result`.</span>
+    <span class="kw">fn</span> <span class="ident">dropout_grad</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">x</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>, <span class="ident">x_diff</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
+                        <span class="ident">result</span>: <span class="kw-2">&amp;</span><span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>, <span class="ident">result_diff</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">SharedTensor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
+                        <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">CDROP</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">co</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
 }
 </pre>
 </section>

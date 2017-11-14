@@ -48,13 +48,15 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/coaster_nn/plugin.rs.html#365-378' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/coaster_nn/plugin.rs.html#368-381' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait LogSoftmax&lt;F&gt;: <a class="trait" href="../coaster_nn/trait.NN.html" title="trait coaster_nn::NN">NN</a>&lt;F&gt; {
     fn <a href='#tymethod.log_softmax' class='fnname'>log_softmax</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result: &amp;mut SharedTensor&lt;F&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>, Error&gt;;
-    fn <a href='#tymethod.log_softmax_grad' class='fnname'>log_softmax_grad</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x_diff: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result_diff: &amp;mut SharedTensor&lt;F&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>, Error&gt;;
+<div class='item-spacer'></div>    fn <a href='#tymethod.log_softmax_grad' class='fnname'>log_softmax_grad</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x_diff: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result_diff: &amp;mut SharedTensor&lt;F&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>, Error&gt;;
 }</pre><div class='docblock'><p>Provides the functionality for a Backend to support LogSoftmax operations.</p>
 </div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
         <h3 id='tymethod.log_softmax' class='method'><span id='log_softmax.v' class='invisible'><code>fn <a href='#tymethod.log_softmax' class='fnname'>log_softmax</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result: &amp;mut SharedTensor&lt;F&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>, Error&gt;</code></span></h3><div class='docblock'><p>Computes a logarithmic softmax over the input Tensor <code>x</code>.</p>
 
@@ -63,7 +65,9 @@
 
 <p>Saves the result to <code>result_diff</code>.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl LogSoftmax&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>&gt; for Backend&lt;Native&gt;</code></li>
 <li><code>impl LogSoftmax&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>&gt; for Backend&lt;Native&gt;</code></li>

@@ -48,7 +48,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/coaster_nn/lib.rs.html#1-127' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/coaster_nn/lib.rs.html#1-128' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Provides a <a href="https://github.com/spearow/coaster">Coaster</a> Plugin, to extend Coaster with Neural Network related
 operations such as convolutions, pooling, ReLU, etc. A full list of operations provided by this Plugin,
 can be found at the <a href="#operations">provided Operations section</a>.</p>
@@ -165,6 +165,18 @@ A <code>-</code> means not yet implemented.</p>
 <td>cuDNN v5 or later</td>
 <td>-</td>
 <td>-</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Dropout</td>
+<td>cuDNN v5 or later</td>
+<td>-</td>
+<td>Rust</td>
 </tr>
 <tr>
 <td></td>
@@ -303,6 +315,13 @@ A <code>-</code> means not yet implemented.</p>
                                   title='trait coaster_nn::ConvolutionConfig'>ConvolutionConfig</a></td>
                            <td class='docblock-short'>
                                 <p>Provides Convolution Config functionality.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Dropout.html"
+                                  title='trait coaster_nn::Dropout'>Dropout</a></td>
+                           <td class='docblock-short'>
+                                <p>Provides the functionality for a Backend to support Dropout operations.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>

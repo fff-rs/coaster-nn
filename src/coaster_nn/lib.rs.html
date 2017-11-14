@@ -170,6 +170,7 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Provides a [Coaster][coaster] Plugin, to extend Coaster with Neural Network related</span>
 <span class="doccomment">//! operations such as convolutions, pooling, ReLU, etc. A full list of operations provided by this Plugin,</span>
@@ -259,6 +260,8 @@
 <span class="doccomment">//! |                      |                   |           |           |</span>
 <span class="doccomment">//! | Normalization (LRN)  | cuDNN v5 or later | -         | -         |</span>
 <span class="doccomment">//! |                      |                   |           |           |</span>
+<span class="doccomment">//! | Dropout              | cuDNN v5 or later | -         | Rust      |</span>
+<span class="doccomment">//! |                      |                   |           |           |</span>
 <span class="doccomment">//! | Convolution          | cuDNN v5 or later | -         | Rust(fwd) |</span>
 <span class="doccomment">//! |                      |                   |           |           |</span>
 <span class="doccomment">//! | Softmax              | cuDNN v5 or later | -         | Rust      |</span>
@@ -288,7 +291,6 @@
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rand</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">plugin</span>::<span class="kw-2">*</span>;
