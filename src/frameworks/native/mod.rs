@@ -396,8 +396,15 @@ impl<T> ::plugin::Convolution<T> for Backend<Native>
                                filter_diff: &mut SharedTensor<T>,
                                workspace: &mut SharedTensor<u8>,
                                config: &Self::CC)
-                               -> Result<(), ::co::error::Error> {
+                               -> Result<(), ::co::error::Error> {                
+        let dev = self.device();
+        println!("testing conv grad filter...");
+        filter_diff.read_write(dev).and_then(|filt_diff| {
+            println!("expecting filter_diff to be: {:?}", filt_diff);
+            Ok(filt_diff)
+        }).unwrap();
         unimplemented!()
+            
     }
 
     fn convolution_grad_data(&self,

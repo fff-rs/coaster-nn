@@ -179,8 +179,44 @@ mod cuda {
 mod native {
     use super::*;
     //test_native!(test_lrn, lrn_f32, lrn_f64);
-    //test_native!(test_lrn_grad, lrn_grad_f32, lrn_grad_f64);
-    test_native!(test_convolution, convolution_f32, convolution_f64);
+    // test_native!(test_lrn_grad, lrn_grad_f32, lrn_grad_f64);
+    // test_native!(test_convolution, convolution_f32, convolution_f64);
+
+    // NOTE this is a temporary test just to be used for verifying the
+    // implementation of convolution_grad_filter for native.
+    #[test]
+    fn temp_native_conv_grad_filt_test() {
+        let batch = 4;
+        let width1 = 9;
+        let height1 = 9;
+        let depth1 = 3;
+        let stride_for_height = 1;
+        let stride_for_width = 1;
+        let filter_size = 6;
+        let filter_count = 3;
+
+        let result_width = (width1 - filter_size + 0) / stride_for_width + 1;
+        let result_height = (height1 - filter_size + 0) / stride_for_height + 1;
+
+        let x_val = vec![1.0; batch * depth1 * height1 * width1];
+        let f_val = vec![1.0; filter_count * depth1 * filter_size * filter_size];
+
+        let backend_a = ::tests::get_native_backend();
+
+        let x  = filled_tensor(&backend_a, &[batch, depth1, height1, width1], &x_val);
+        let mut f  = filled_tensor(&backend_a, &[filter_count, depth1, filter_size,  filter_size], &f_val);
+        let mut result_a  = SharedTensor::<f32>::new(&[batch, filter_count, result_height, result_width]);
+        let mut result_b  = SharedTensor::<f32>::new(&[batch, filter_count, result_height, result_width]);
+        let mut ws = SharedTensor::<u8>::new(&[64]);
+        
+        let conf_a = backend_a.new_convolution_config(
+            &x, &result_a, &f,
+            ConvForwardAlgo::Auto,
+            ConvBackwardFilterAlgo::Auto,
+            ConvBackwardDataAlgo::Auto,
+            &[1,1], &[0,0]).unwrap();
+        backend_a.convolution_grad_filter(&x, &x, &mut f, &mut ws, &conf_a).unwrap();
+    }
 }
 
 mod cross {
