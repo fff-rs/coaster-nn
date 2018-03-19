@@ -400,9 +400,14 @@ impl<T> ::plugin::Convolution<T> for Backend<Native>
         let dev = self.device();
         println!("testing conv grad filter...");
         filter_diff.read_write(dev).and_then(|filt_diff| {
-            println!("expecting filter_diff to be: {:?}", filt_diff);
+            {
+                let mem = filt_diff.as_mut_slice::<f32>();
+                println!("expecting filter_diff to be:");
+                for item in mem { print!("{},", item); }
+            }
             Ok(filt_diff)
         }).unwrap();
+        println!("");
         unimplemented!()
             
     }

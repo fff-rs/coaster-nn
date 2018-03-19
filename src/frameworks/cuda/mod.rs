@@ -4,11 +4,46 @@
 use co::Error;
 use co::plugin::Error as PluginError;
 use co::plugin::numeric_helpers::Float;
-use co::prelude::*;
-use cudnn::*;
+use co::prelude::{
+    Backend,
+    Cuda,
+    ITensorDesc,
+    SharedTensor
+};
+
+use cudnn::{
+    API,
+    Cudnn,
+    ConvolutionDescriptor,
+    FilterDescriptor,
+    TensorDescriptor,
+    cudnnConvolutionBwdDataAlgo_t,
+    cudnnConvolutionBwdFilterAlgo_t,
+    cudnnConvolutionFwdAlgo_t,
+    utils
+};
 
 pub use cudnn::utils::DataTypeInfo;
-use plugin::*;
+use plugin::{
+    ConvBackwardDataAlgo,
+    ConvBackwardFilterAlgo,
+    ConvForwardAlgo,
+    Convolution,
+    ConvolutionConfig,
+    Dropout,
+    LogSoftmax,
+    LRN,
+    NN,
+    NNOperationConfig,
+    Pooling,
+    Relu,
+    ReluPointwise,
+    Sigmoid,
+    SigmoidPointwise,
+    Softmax,
+    Tanh,
+    TanhPointwise
+};
 
 #[macro_use]
 pub mod helper;
