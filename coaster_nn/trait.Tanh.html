@@ -10,8 +10,11 @@
     <title>coaster_nn::Tanh - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
     
 
     
@@ -33,6 +36,13 @@
         <p class='location'>Trait Tanh</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.tanh">tanh</a><a href="#tymethod.tanh_grad">tanh_grad</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-Tanh%3Cf32%3E">Backend&lt;Native&gt;</a><a href="#impl-Tanh%3Cf64%3E">Backend&lt;Native&gt;</a><a href="#impl-Tanh%3CT%3E">Backend&lt;Cuda&gt;</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>coaster_nn</a></p><script>window.sidebarCurrent = {name: 'Tanh', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -59,11 +69,11 @@
               Required Methods<a href='#required-methods' class='anchor'></a>
             </h2>
             <div class='methods'>
-        <h3 id='tymethod.tanh' class='method'><span id='tanh.v' class='invisible'><code>fn <a href='#tymethod.tanh' class='fnname'>tanh</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result: &amp;mut SharedTensor&lt;F&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code></span></h3><div class='docblock'><p>Computes the <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">hyperbolic Tangent</a> over the input Tensor <code>x</code>.</p>
-
+        <h3 id='tymethod.tanh' class='method'><span id='tanh.v' class='invisible'><code>fn <a href='#tymethod.tanh' class='fnname'>tanh</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result: &amp;mut SharedTensor&lt;F&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code></span></h3><div class='docblock'><p>Computes the [hyperbolic Tangent][tanh] over the input Tensor <code>x</code>.
+[tanh]: https://en.wikipedia.org/wiki/Hyperbolic_function</p>
 <p>Saves the result to <code>result</code>.</p>
-</div><h3 id='tymethod.tanh_grad' class='method'><span id='tanh_grad.v' class='invisible'><code>fn <a href='#tymethod.tanh_grad' class='fnname'>tanh_grad</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;x_diff: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result_diff: &amp;mut SharedTensor&lt;F&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code></span></h3><div class='docblock'><p>Computes the gradient of <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">hyperbolic Tangent</a> over the input Tensor <code>x</code>.</p>
-
+</div><h3 id='tymethod.tanh_grad' class='method'><span id='tanh_grad.v' class='invisible'><code>fn <a href='#tymethod.tanh_grad' class='fnname'>tanh_grad</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;x_diff: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result: &amp;SharedTensor&lt;F&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;result_diff: &amp;mut SharedTensor&lt;F&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code></span></h3><div class='docblock'><p>Computes the gradient of [hyperbolic Tangent][tanh] over the input Tensor <code>x</code>.
+[tanh]: https://en.wikipedia.org/wiki/Hyperbolic_function</p>
 <p>Saves the result to <code>result_diff</code>.</p>
 </div></div>
                 <h2 id='foreign-impls' class='small-section-header'>
@@ -98,20 +108,22 @@
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 

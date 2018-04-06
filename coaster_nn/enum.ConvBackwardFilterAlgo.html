@@ -10,8 +10,11 @@
     <title>coaster_nn::ConvBackwardFilterAlgo - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
     
 
     
@@ -33,6 +36,13 @@
         <p class='location'>Enum ConvBackwardFilterAlgo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#variants">Variants</a><div class="sidebar-links"><a href="#variant.Auto">Auto</a><a href="#variant.ImplicitGEMM">ImplicitGEMM</a><a href="#variant.ImplicitGEMMSum">ImplicitGEMMSum</a><a href="#variant.ImplicitPrecompiledGEMMSum">ImplicitPrecompiledGEMMSum</a><a href="#variant.FFT">FFT</a><a href="#variant.WinogradNonFused">WinogradNonFused</a></div><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.is_auto">is_auto</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Copy">Copy</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>coaster_nn</a></p><script>window.sidebarCurrent = {name: 'ConvBackwardFilterAlgo', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -62,22 +72,15 @@
                    Variants<a href='#variants' class='anchor'></a></h2>
 <span id="variant.Auto" class="variant small-section-header"><a href="#variant.Auto" class="anchor field"></a><span id='Auto.v' class='invisible'><code>Auto</code></span></span><div class='docblock'><p>Attempt to automatically find the best algorithm of all the other available ones.</p>
 </div><span id="variant.ImplicitGEMM" class="variant small-section-header"><a href="#variant.ImplicitGEMM" class="anchor field"></a><span id='ImplicitGEMM.v' class='invisible'><code>ImplicitGEMM</code></span></span><div class='docblock'><p>Compute the convolution as matrix product without forming the matrix that holds the input data.</p>
-
 <p>Does not need any memory workspace.</p>
-
 <p>The results are deterministic.</p>
 </div><span id="variant.ImplicitGEMMSum" class="variant small-section-header"><a href="#variant.ImplicitGEMMSum" class="anchor field"></a><span id='ImplicitGEMMSum.v' class='invisible'><code>ImplicitGEMMSum</code></span></span><div class='docblock'><p>Compute the convolution as sum of matrix product without forming the matrix that holds the input data.</p>
-
 <p>Does not need any memory workspace.</p>
-
 <p>The results are non-deterministic.</p>
 </div><span id="variant.ImplicitPrecompiledGEMMSum" class="variant small-section-header"><a href="#variant.ImplicitPrecompiledGEMMSum" class="anchor field"></a><span id='ImplicitPrecompiledGEMMSum.v' class='invisible'><code>ImplicitPrecompiledGEMMSum</code></span></span><div class='docblock'><p>Similar to <code>ImplicitGEMMSum</code> but needs some workspace to precompile the implicit indices.</p>
-
 <p>The results are non-deterministic.</p>
 </div><span id="variant.FFT" class="variant small-section-header"><a href="#variant.FFT" class="anchor field"></a><span id='FFT.v' class='invisible'><code>FFT</code></span></span><div class='docblock'><p>Compute the convolution as Fast-Fourier Transform.</p>
-
 <p>Needs a significant memory workspace.</p>
-
 <p>The results are deterministic.</p>
 </div><span id="variant.WinogradNonFused" class="variant small-section-header"><a href="#variant.WinogradNonFused" class="anchor field"></a><span id='WinogradNonFused.v' class='invisible'><code>WinogradNonFused</code></span></span><div class='docblock'><p>Winograd  Transform Non-Fused</p>
 </div>
@@ -113,20 +116,22 @@
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 

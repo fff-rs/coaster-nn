@@ -10,8 +10,11 @@
     <title>coaster_nn::frameworks::cuda::ICudnnDesc - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css" id="themeStyle">
+    <script src="../../../storage.js"></script>
     
 
     
@@ -33,6 +36,13 @@
         <p class='location'>Trait ICudnnDesc</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.cudnn_tensor_desc">cudnn_tensor_desc</a><a href="#tymethod.cudnn_tensor_desc_softmax">cudnn_tensor_desc_softmax</a><a href="#tymethod.cudnn_tensor_desc_flat">cudnn_tensor_desc_flat</a><a href="#tymethod.cudnn_filter_desc">cudnn_filter_desc</a><a href="#tymethod.cudnn_convolution_desc">cudnn_convolution_desc</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-ICudnnDesc%3CT%3E">SharedTensor&lt;T&gt;</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>coaster_nn</a>::<wbr><a href='../index.html'>frameworks</a>::<wbr><a href='index.html'>cuda</a></p><script>window.sidebarCurrent = {name: 'ICudnnDesc', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -65,8 +75,7 @@
 but will create a fitting 4D tensor if the actual tensor would be 1D-3D.</p>
 </div><h3 id='tymethod.cudnn_tensor_desc_flat' class='method'><span id='cudnn_tensor_desc_flat.v' class='invisible'><code>fn <a href='#tymethod.cudnn_tensor_desc_flat' class='fnname'>cudnn_tensor_desc_flat</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;TensorDescriptor, PluginError&gt;</code></span></h3><div class='docblock'><p>Creates a TensorDescriptor similar to <code>cudnn_tensor_desc</code>,
 but will create a fitting 3D tensor if the actual tensor would be 1D/2D.</p>
-
-<p>This should be used in operations where the shape doesn&#39;t really matter
+<p>This should be used in operations where the shape doesn't really matter
 e.g. activation like ReLU.</p>
 </div><h3 id='tymethod.cudnn_filter_desc' class='method'><span id='cudnn_filter_desc.v' class='invisible'><code>fn <a href='#tymethod.cudnn_filter_desc' class='fnname'>cudnn_filter_desc</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;FilterDescriptor, PluginError&gt;</code></span></h3><h3 id='tymethod.cudnn_convolution_desc' class='method'><span id='cudnn_convolution_desc.v' class='invisible'><code>fn <a href='#tymethod.cudnn_convolution_desc' class='fnname'>cudnn_convolution_desc</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;filter: &amp;SharedTensor&lt;T&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;ConvolutionDescriptor, PluginError&gt;</code></span></h3></div>
                 <h2 id='foreign-impls' class='small-section-header'>
@@ -98,20 +107,22 @@ e.g. activation like ReLU.</p>
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 
