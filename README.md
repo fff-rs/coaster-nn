@@ -1,3 +1,10 @@
+
+**THIS REPOSITORY GOT MERGED INTO JUICE**  
+**PLEASE CONTINUE HERE [JUICE / COASTER-NN](https://github.com/spearow/juice/tree/master/coaster-nn/README.md)**
+
+---
+
+
 # coaster-NN • [![Join the chat at https://gitter.im/spearow/coaster-nn](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/spearow/coaster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://ci.spearow.io/api/v1/teams/spearow/pipelines/juice/jobs/test-coaster-nn/badge)](https://ci.spearow.io/teams/spearow/pipelines/juice) [![Crates.io](https://img.shields.io/crates/v/coaster-nn.svg)](https://crates.io/crates/coaster-nn) [![License](https://img.shields.io/crates/l/coaster-nn.svg)](#license)
 
 coaster-NN provides Neural Network related algorithms for [coaster][coaster].
